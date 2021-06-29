@@ -1,0 +1,16 @@
+org: luzzif
+app: swapr-coingecko-farming
+service: swapr-coingecko-farming
+provider:
+  name: aws
+  runtime: nodejs12.x
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+functions:
+  pools:
+    handler: app/handler.pools
+    events:
+      - http:
+          path: pools
+          method: get

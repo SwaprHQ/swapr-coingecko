@@ -1,0 +1,48 @@
+{
+  "name": "swapr-coingecko-farming",
+  "version": "1.0.0",
+  "description": "A proxy API to fetch multi-chain data mainly about Swapr liquidity mining campaigns.",
+  "main": "index.js",
+  "author": "Federico Luzzi <fedeluzzi00@gmail.com>",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luzzif/swapr-coingecko-farming.git"
+  },
+  "scripts": {
+    "lint:tslint": "tslint -p tsconfig.json -c tslint.json",
+    "lint:commit-message": "commitlint -e",
+    "lint": "yarn lint:tslint && yarn lint:commit-message",
+    "local": "serverless offline",
+    "deploy": "serverless deploy"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "@ethersproject/abi": "^5.4.0",
+    "@ethersproject/address": "^5.4.0",
+    "@ethersproject/bignumber": "^5.4.0",
+    "@ethersproject/contracts": "^5.4.0",
+    "@ethersproject/networks": "^5.4.0",
+    "@ethersproject/providers": "^5.4.0",
+    "@ethersproject/solidity": "^5.4.0",
+    "decimal.js-light": "^2.5.1",
+    "dxswap-sdk": "git://github.com/levelkdev/dxswap-sdk.git#v0.8.5",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@types/aws-lambda": "^8.10.51",
+    "@types/chai": "^4.2.11",
+    "@types/node-fetch": "^2.5.10",
+    "cross-env": "^7.0.2",
+    "serverless-offline": "^5.12.1",
+    "serverless-plugin-typescript": "^1.1.9",
+    "ts-node": "^8.9.1",
+    "tslint": "^6.1.2",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.8.3"
+  }
+}
