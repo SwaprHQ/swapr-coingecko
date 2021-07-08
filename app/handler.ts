@@ -223,6 +223,42 @@ async function getCampaignsAndNativeCurrencyPriceAndTvl(
   };
 }
 
+interface Pool {
+  identifier: string;
+  liquidity_locked: number;
+  pair: string;
+  pairLink: string;
+  poolRewards: string[];
+  totalStakedUSD: number;
+  apr: number;
+}
+
+const liquidityMiningCampaignToPool = (
+  campaign: LiquidityMiningCampaign,
+  nativeCurrencyPrice: Price,
+  ordinal?: number
+): Pool => {
+  let identifier = `Swapr ${campaign.targetedPair.token0.symbol}-${
+    campaign.targetedPair.token1.symbol
+  } on ${CHAIN_NAME[campaign.chainId]}`;
+  if (ordinal) identifier += ` ${ordinal}`;
+  return {
+    identifier,
+    liquidity_locked: Number(
+      campaign.staked.nativeCurrencyAmount
+        .multiply(nativeCurrencyPrice)
+        .toFixed(2)
+    ),
+    pair: `${campaign.targetedPair.token0.symbol}-${campaign.targetedPair.token1.symbol}`,
+    pairLink: `https://swapr.eth.link/#/pools/${campaign.targetedPair.token0.address}/${campaign.targetedPair.token1.address}?chainId=${campaign.chainId}`,
+    poolRewards: campaign.rewards.map((reward) => reward.token.symbol),
+    totalStakedUSD: Number(
+      campaign.staked.multiply(nativeCurrencyPrice).toFixed(2)
+    ),
+    apr: Number(campaign.apy.toFixed(2)),
+  };
+};
+
 export const pools: Handler = async (_event, _context, callback) => {
   const {
     campaigns: mainnetCampaigns,
@@ -241,27 +277,43 @@ export const pools: Handler = async (_event, _context, callback) => {
     [ChainId.XDAI]: xDaiNativeCurrencyPrice,
   };
 
-  const pools = allCampaigns.map((campaign) => {
-    return {
-      identifier: `Swapr ${campaign.targetedPair.token0.symbol}-${
-        campaign.targetedPair.token1.symbol
-      } on ${CHAIN_NAME[campaign.chainId]}`,
-      liquidity_locked: Number(
-        campaign.staked.nativeCurrencyAmount
-          .multiply(nativeCurrencyPrice[campaign.chainId])
-          .toFixed(2)
-      ),
-      pair: `${campaign.targetedPair.token0.symbol}-${campaign.targetedPair.token1.symbol}`,
-      pairLink: `https://swapr.eth.link/#/pools/${campaign.targetedPair.token0.address}/${campaign.targetedPair.token1.address}?chainId=${campaign.chainId}`,
-      poolRewards: campaign.rewards.map((reward) => reward.token.symbol),
-      totalStakedUSD: Number(
-        campaign.staked
-          .multiply(nativeCurrencyPrice[campaign.chainId])
-          .toFixed(2)
-      ),
-      apr: Number(campaign.apy.toFixed(2)),
-    };
-  });
+  // groups duplicated campaigns together
+  const groupedCampaign = allCampaigns.reduce(
+    (
+      accumulator: { [pairAndChainId: string]: LiquidityMiningCampaign[] },
+      campaign
+    ) => {
+      const key = `${campaign.targetedPair.liquidityToken.address}-${campaign.chainId}`;
+      if (accumulator[key]) accumulator[key].push(campaign);
+      else accumulator[key] = [campaign];
+      return accumulator;
+    },
+    {}
+  );
+  const pools = Object.values(groupedCampaign).reduce(
+    (accumulator: Pool[], campaigns) => {
+      if (campaigns.length === 1)
+        accumulator.push(
+          liquidityMiningCampaignToPool(
+            campaigns[0],
+            nativeCurrencyPrice[campaigns[0].chainId]
+          )
+        );
+      else {
+        accumulator.push(
+          ...campaigns.map((campaign, index) => {
+            return liquidityMiningCampaignToPool(
+              campaign,
+              nativeCurrencyPrice[campaign.chainId],
+              index + 1
+            );
+          })
+        );
+      }
+      return accumulator;
+    },
+    []
+  );
 
   callback(null, {
     statusCode: 200,
