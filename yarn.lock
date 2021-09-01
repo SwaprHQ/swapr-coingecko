@@ -789,10 +789,10 @@
   dependencies:
     "@swapr/core" "^0.3.11"
 
-"@swapr/sdk@^0.10.4":
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/@swapr/sdk/-/sdk-0.10.4.tgz#75fbf82c9476f14e8ef027257028b52ba04921d6"
-  integrity sha512-ZFgnTBuRCnJ553GkqQR1xoPsebUE2HpHCL/afv/ZGNI27thO8zL5vnn6ZhZ9gKUeRP28cq4unYQltoR+RyKGGA==
+"@swapr/sdk@^0.10.5":
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/@swapr/sdk/-/sdk-0.10.5.tgz#2315b889d24a711493ae4dd79ed22d8345ed7175"
+  integrity sha512-jKsCkqBzxSCggCS9fUgHrQvwNt0sMV1fpCoKceGOnhmkZOFVN+7nJDaCHW5LI3/sNxRPYSBSoBA89hDNdB6TKA==
   dependencies:
     "@makerdao/multicall" "^0.11.0"
     "@swapr/core" "^0.3.11"

@@ -27,13 +27,13 @@
     "@ethersproject/networks": "^5.4.0",
     "@ethersproject/providers": "^5.4.0",
     "@ethersproject/solidity": "^5.4.0",
+    "@swapr/sdk": "^0.10.5",
     "decimal.js-light": "^2.5.1",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@swapr/sdk": "^0.10.4",
     "@types/aws-lambda": "^8.10.51",
     "@types/chai": "^4.2.11",
     "@types/node-fetch": "^2.5.10",
