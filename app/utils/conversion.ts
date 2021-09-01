@@ -8,7 +8,7 @@ import {
   PricedTokenAmount,
   Token,
   TokenAmount,
-} from "dxswap-sdk";
+} from "@swapr/sdk";
 import { getAddress } from "@ethersproject/address";
 import { parseFixed } from "@ethersproject/bignumber";
 import { Decimal } from "decimal.js-light";

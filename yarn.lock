@@ -775,6 +775,35 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
+"@swapr/core@^0.3.11":
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/@swapr/core/-/core-0.3.11.tgz#908fb6738b6a11d7dd25bfef3d6c5a704bfd3919"
+  integrity sha512-VGEH3rgdJzsBSWqgHp9CQhKgjNR73/3nXmRH+PFQ4yx/DWHE/GaaRevBxBrDt/ZjHV9AAZQKSlmLqb1MGAK6lw==
+  dependencies:
+    typescript "^3.9.5"
+
+"@swapr/periphery@^0.3.15":
+  version "0.3.15"
+  resolved "https://registry.yarnpkg.com/@swapr/periphery/-/periphery-0.3.15.tgz#ad6033449ec5700b073f537a62243d9654ef7367"
+  integrity sha512-KMTlnyK1JQOXW56DzKeUh/iPUt/qAdfzR94NORvtdp+eWVg8NFl4YxXUCzfTNlpAJkpa+sVDvqRZbapAOwvmKA==
+  dependencies:
+    "@swapr/core" "^0.3.11"
+
+"@swapr/sdk@^0.10.4":
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@swapr/sdk/-/sdk-0.10.4.tgz#75fbf82c9476f14e8ef027257028b52ba04921d6"
+  integrity sha512-ZFgnTBuRCnJ553GkqQR1xoPsebUE2HpHCL/afv/ZGNI27thO8zL5vnn6ZhZ9gKUeRP28cq4unYQltoR+RyKGGA==
+  dependencies:
+    "@makerdao/multicall" "^0.11.0"
+    "@swapr/core" "^0.3.11"
+    "@swapr/periphery" "^0.3.15"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
@@ -1471,38 +1500,6 @@ duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
-
-"dxswap-core@git://github.com/levelkdev/dxswap-core.git#v0.3.1":
-  version "0.3.0"
-  resolved "git://github.com/levelkdev/dxswap-core.git#ea38ac67256e514eaf3acd0cfc84d7135e59e64e"
-  dependencies:
-    typescript "^3.9.5"
-
-"dxswap-core@git://github.com/levelkdev/dxswap-core.git#v0.3.7":
-  version "0.3.7"
-  resolved "git://github.com/levelkdev/dxswap-core.git#967a394c4e7f4e101faf2ebcd67e6a972d06aba2"
-  dependencies:
-    typescript "^3.9.5"
-
-"dxswap-periphery@git://github.com/levelkdev/dxswap-periphery.git#v0.3.8":
-  version "0.3.8"
-  resolved "git://github.com/levelkdev/dxswap-periphery.git#9b0d792ea8fe1c9f483bd11a5d8e83634d6814b5"
-  dependencies:
-    dxswap-core "git://github.com/levelkdev/dxswap-core.git#v0.3.1"
-
-"dxswap-sdk@git://github.com/levelkdev/dxswap-sdk.git#v0.8.5":
-  version "0.8.5"
-  resolved "git://github.com/levelkdev/dxswap-sdk.git#c02f992d4232a92b2964deb4768d8d43d6370393"
-  dependencies:
-    "@makerdao/multicall" "^0.11.0"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    dxswap-core "git://github.com/levelkdev/dxswap-core.git#v0.3.7"
-    dxswap-periphery "git://github.com/levelkdev/dxswap-periphery.git#v0.3.8"
-    jsbi "^3.1.1"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-    toformat "^2.0.0"
 
 ecdsa-sig-formatter@1.0.11:
   version "1.0.11"

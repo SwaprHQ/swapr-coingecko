@@ -1,6 +1,6 @@
 import { parseFixed } from "@ethersproject/bignumber";
 import Decimal from "decimal.js-light";
-import { Currency, Pair, Price } from "dxswap-sdk";
+import { Currency, Pair, Price } from "@swapr/sdk";
 
 export function getLpTokenPrice(
   pair: Pair,

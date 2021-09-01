@@ -11,7 +11,7 @@ import {
   Price,
   Token,
   TokenAmount,
-} from "dxswap-sdk";
+} from "@swapr/sdk";
 import fetch from "node-fetch";
 import {
   SubgraphLiquidityMiningCampaign,
@@ -22,11 +22,14 @@ const SUBGRAPH_URL = {
   [ChainId.MAINNET]:
     "https://api.thegraph.com/subgraphs/name/luzzif/swapr-mainnet-alpha",
   [ChainId.XDAI]: "https://api.thegraph.com/subgraphs/name/luzzif/swapr-xdai",
+  [ChainId.ARBITRUM_ONE]:
+    "https://api.thegraph.com/subgraphs/name/luzzif/swapr-arbitrum-one",
 };
 
 const CHAIN_NAME = {
   [ChainId.MAINNET]: "mainnet",
   [ChainId.XDAI]: "xDai",
+  [ChainId.ARBITRUM_ONE]: "Arbitrum",
 };
 
 interface SubgraphToken {
@@ -270,11 +273,19 @@ export const pools: Handler = async (_event, _context, callback) => {
     nativeCurrencyPrice: xDaiNativeCurrencyPrice,
     tvl: xDaiTvl,
   } = await getCampaignsAndNativeCurrencyPriceAndTvl(ChainId.XDAI);
+  const {
+    campaigns: arbitrumCampaigns,
+    nativeCurrencyPrice: arbitrumNativeCurrencyPrice,
+    tvl: arbitrumTvl,
+  } = await getCampaignsAndNativeCurrencyPriceAndTvl(ChainId.ARBITRUM_ONE);
 
-  const allCampaigns = mainnetCampaigns.concat(xDaiCampaigns);
+  const allCampaigns = mainnetCampaigns
+    .concat(xDaiCampaigns)
+    .concat(arbitrumCampaigns);
   const nativeCurrencyPrice = {
     [ChainId.MAINNET]: mainnetNativeCurrencyPrice,
     [ChainId.XDAI]: xDaiNativeCurrencyPrice,
+    [ChainId.ARBITRUM_ONE]: arbitrumNativeCurrencyPrice,
   };
 
   // groups duplicated campaigns together
@@ -335,7 +346,7 @@ export const pools: Handler = async (_event, _context, callback) => {
           link: "https://dxdao.eth.link",
         },
       ],
-      tvlUSD: mainnetTvl.add(xDaiTvl).toFixed(2),
+      tvlUSD: mainnetTvl.add(xDaiTvl).add(arbitrumTvl).toFixed(2),
       pools,
     }),
   });
