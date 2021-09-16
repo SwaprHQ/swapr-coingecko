@@ -23,7 +23,7 @@ const SUBGRAPH_URL = {
     "https://api.thegraph.com/subgraphs/name/luzzif/swapr-mainnet-alpha",
   [ChainId.XDAI]: "https://api.thegraph.com/subgraphs/name/luzzif/swapr-xdai",
   [ChainId.ARBITRUM_ONE]:
-    "https://api.thegraph.com/subgraphs/name/luzzif/swapr-arbitrum-one",
+    "https://api.thegraph.com/subgraphs/name/luzzif/swapr-arbitrum-one-v2",
 };
 
 const CHAIN_NAME = {
