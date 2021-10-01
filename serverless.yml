@@ -1,6 +1,7 @@
 org: luzzif
-app: swapr-coingecko-farming
-service: swapr-coingecko-farming
+app: swapr-coingecko
+service: swapr-coingecko
+useDotenv: true
 provider:
   name: aws
   runtime: nodejs12.x
@@ -9,8 +10,14 @@ plugins:
   - serverless-offline
 functions:
   pools:
-    handler: app/handler.pools
+    handler: app/pools/handler.pools
     events:
       - http:
           path: pools
+          method: get
+  circulating-supply:
+    handler: app/circulating-supply/handler.circulatingSupply
+    events:
+      - http:
+          path: circulating-supply
           method: get

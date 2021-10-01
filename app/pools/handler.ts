@@ -16,7 +16,7 @@ import fetch from "node-fetch";
 import {
   SubgraphLiquidityMiningCampaign,
   toLiquidityMiningCampaign,
-} from "./utils/conversion";
+} from "../utils/conversion";
 
 const SUBGRAPH_URL = {
   [ChainId.MAINNET]:
@@ -262,7 +262,7 @@ const liquidityMiningCampaignToPool = (
   };
 };
 
-export const pools: Handler = async (_event, _context, callback) => {
+export const pools: Handler = async () => {
   const {
     campaigns: mainnetCampaigns,
     nativeCurrencyPrice: mainnetNativeCurrencyPrice,
@@ -326,7 +326,7 @@ export const pools: Handler = async (_event, _context, callback) => {
     []
   );
 
-  callback(null, {
+  return {
     statusCode: 200,
     body: JSON.stringify({
       provider: "Swapr",
@@ -349,5 +349,5 @@ export const pools: Handler = async (_event, _context, callback) => {
       tvlUSD: mainnetTvl.add(xDaiTvl).add(arbitrumTvl).toFixed(2),
       pools,
     }),
-  });
+  };
 };

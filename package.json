@@ -1,5 +1,5 @@
 {
-  "name": "swapr-coingecko-farming",
+  "name": "swapr-coingecko",
   "version": "1.0.0",
   "description": "A proxy API to fetch multi-chain data mainly about Swapr liquidity mining campaigns.",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luzzif/swapr-coingecko-farming.git"
+    "url": "git+https://github.com/luzzif/swapr-coingecko.git"
   },
   "scripts": {
     "lint:tslint": "tslint -p tsconfig.json -c tslint.json",
@@ -27,13 +27,14 @@
     "@ethersproject/networks": "^5.4.0",
     "@ethersproject/providers": "^5.4.0",
     "@ethersproject/solidity": "^5.4.0",
-    "@swapr/sdk": "^0.10.5",
+    "@swapr/sdk": "^0.10.7",
     "decimal.js-light": "^2.5.1",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@ethersproject/units": "^5.4.0",
     "@types/aws-lambda": "^8.10.51",
     "@types/chai": "^4.2.11",
     "@types/node-fetch": "^2.5.10",
