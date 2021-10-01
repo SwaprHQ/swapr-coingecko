@@ -1,7 +1,6 @@
 org: luzzif
-app: swapr-coingecko
-service: swapr-coingecko
-useDotenv: true
+app: swapr-coingecko-farming
+service: swapr-coingecko-farming
 provider:
   name: aws
   runtime: nodejs12.x
@@ -17,6 +16,7 @@ functions:
           method: get
   circulating-supply:
     handler: app/circulating-supply/handler.circulatingSupply
+    environment: ${file(.env.json)}
     events:
       - http:
           path: circulating-supply
