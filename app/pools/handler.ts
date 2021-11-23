@@ -17,14 +17,7 @@ import {
   SubgraphLiquidityMiningCampaign,
   toLiquidityMiningCampaign,
 } from "../utils/conversion";
-
-const SUBGRAPH_URL = {
-  [ChainId.MAINNET]:
-    "https://api.thegraph.com/subgraphs/name/luzzif/swapr-mainnet-alpha",
-  [ChainId.XDAI]: "https://api.thegraph.com/subgraphs/name/luzzif/swapr-xdai",
-  [ChainId.ARBITRUM_ONE]:
-    "https://api.thegraph.com/subgraphs/name/luzzif/swapr-arbitrum-one-v2",
-};
+import { SUBGRAPH_URL } from "../utils/commons";
 
 const CHAIN_NAME = {
   [ChainId.MAINNET]: "mainnet",
@@ -79,11 +72,12 @@ async function getCampaignsAndNativeCurrencyPriceAndTvl(
       `could not fetch native currency price on chain id ${chainId}`
     );
   }
-  const nativeCurrencyPriceResult = (await nativeCurrencyPriceResponse.json()) as {
-    data: {
-      bundle: { nativeCurrencyPrice: string };
+  const nativeCurrencyPriceResult =
+    (await nativeCurrencyPriceResponse.json()) as {
+      data: {
+        bundle: { nativeCurrencyPrice: string };
+      };
     };
-  };
 
   const tvlResponse = await fetch(SUBGRAPH_URL[chainId], {
     body: JSON.stringify({

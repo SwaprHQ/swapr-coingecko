@@ -21,3 +21,10 @@ functions:
       - http:
           path: circulating-supply
           method: get
+  uncollected-protocol-fees:
+    handler: app/uncollected-protocol-fees/handler.uncollectedProtocolFees
+    environment: ${file(.env.json)}
+    events:
+      - http:
+          path: uncollected-protocol-fees
+          method: get
