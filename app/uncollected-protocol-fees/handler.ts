@@ -30,26 +30,33 @@ const getProtocolFeesUSD = async (
   providerUrl: string,
   feeReceiverAddress: string
 ): Promise<Decimal> => {
-  const response = await fetch(subgraphUrl, {
-    body: JSON.stringify({
-      query: `query {
-        pairs(first: 1000) {
-          id
-          totalSupply
-          reserveUSD
-        }
-      }`,
-    }),
-    method: "POST",
-  });
-  if (!response.ok) throw new Error(`could not fetch all pairs info for `);
-  const { data: json } = (await response.json()) as Response;
+  const pairs = [];
+  let lastId = "";
+  while (1) {
+    const response = await fetch(subgraphUrl, {
+      body: JSON.stringify({
+        query: `query {
+          pairs(first: 1000, where: { id_gt: "${lastId}" }) {
+            id
+            totalSupply
+            reserveUSD
+          }
+        }`,
+      }),
+      method: "POST",
+    });
+    if (!response.ok) throw new Error(`could not fetch all pairs info for `);
+    const { data: json } = (await response.json()) as Response;
+    pairs.push(...json.pairs);
+    lastId = json.pairs[json.pairs.length - 1].id;
+    if (json.pairs.length < 1000) break;
+  }
 
   const provider = new JsonRpcProvider(providerUrl);
   const results = await multicall(
     chainId,
     provider,
-    json.pairs.map((pair) => ({
+    pairs.map((pair) => ({
       to: pair.id,
       data: basicErc20Interface.encodeFunctionData(balanceOfFunction, [
         feeReceiverAddress,
@@ -61,7 +68,7 @@ const getProtocolFeesUSD = async (
     (accumulator, balance: string, index) => {
       const bigNumberBalance = BigNumber.from(balance);
       if (bigNumberBalance.isZero()) return accumulator;
-      const pairData = json.pairs[index];
+      const pairData = pairs[index];
       const lpTokenPriceUSD = new Decimal(pairData.reserveUSD).dividedBy(
         pairData.totalSupply
       );
