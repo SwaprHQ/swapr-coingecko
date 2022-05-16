@@ -52,9 +52,7 @@ const getArbitrumOneBalances = async (): Promise<{
   swaprWalletSchemeBalance: BigNumber;
   unconvertedBalance: BigNumber;
 }> => {
-  const provider = new JsonRpcProvider(
-    `https://arbitrum-mainnet.infura.io/v3/${process.env.INFURA_ID}`
-  );
+  const provider = new JsonRpcProvider(`https://arb1.arbitrum.io/rpc`);
 
   const swprAddress = SWPR[ChainId.ARBITRUM_ONE].address;
   const results = await multicall(ChainId.ARBITRUM_ONE, provider, [
@@ -96,10 +94,8 @@ const getArbitrumOneBalances = async (): Promise<{
 };
 
 export const circulatingSupply: Handler = async () => {
-  const {
-    daoBalance: mainnetDaoBalance,
-    burntBalance,
-  } = await getMainnetBalances();
+  const { daoBalance: mainnetDaoBalance, burntBalance } =
+    await getMainnetBalances();
   const {
     daoBalance: arbitrumOneDaoBalance,
     swaprWalletSchemeBalance,

@@ -92,7 +92,7 @@ export const uncollectedProtocolFees: Handler = async () => {
   const arbitrumOneFees = await getProtocolFeesUSD(
     ChainId.ARBITRUM_ONE,
     SUBGRAPH_URL[ChainId.ARBITRUM_ONE],
-    `https://arbitrum-mainnet.infura.io/v3/${process.env.INFURA_ID}`,
+    `https://arb1.arbitrum.io/rpc`,
     "0x1D7C7cb66fB2d75123351FD0d6779E8d7724a1ae"
   );
   const xDaiFees = await getProtocolFeesUSD(
