@@ -104,6 +104,9 @@ export const uncollectedProtocolFees: Handler = async () => {
 
   return {
     statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       mainnetUSD: mainnetFees.toFixed(3),
       arbitrumOneUSD: arbitrumOneFees.toFixed(3),
