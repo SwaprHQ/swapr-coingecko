@@ -28,3 +28,4 @@ functions:
       - http:
           path: uncollected-protocol-fees
           method: get
+          cors: true
