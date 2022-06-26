@@ -119,15 +119,17 @@ async function getCampaignsAndNativeCurrencyPriceAndTvl(
           endsAt
           locked
           stakingCap
-          rewardTokens {
-            derivedNativeCurrency
-            address: id
-            name
-            symbol
-            decimals
+          rewards {
+            amount
+            token {
+              derivedNativeCurrency
+              address: id
+              name
+              symbol
+              decimals
+            }
           }
           stakedAmount
-          rewardAmounts
           stakablePair {
             token0 {
               address: id

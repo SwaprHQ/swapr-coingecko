@@ -14,12 +14,15 @@ import { parseFixed } from "@ethersproject/bignumber";
 import { Decimal } from "decimal.js-light";
 import { getLpTokenPrice } from "./price";
 
-export interface SubgraphLiquidityMiningCampaignRewardToken {
-  derivedNativeCurrency: string;
-  address: string;
-  symbol: string;
-  name: string;
-  decimals: string;
+export interface SubgraphLiquidityMiningCampaignReward {
+  amount: string;
+  token: {
+    derivedNativeCurrency: string;
+    address: string;
+    symbol: string;
+    name: string;
+    decimals: string;
+  };
 }
 
 export interface SubgraphLiquidityMiningCampaign {
@@ -27,9 +30,8 @@ export interface SubgraphLiquidityMiningCampaign {
   duration: string;
   startsAt: string;
   endsAt: string;
-  rewardAmounts: string[];
   stakedAmount: string;
-  rewardTokens: SubgraphLiquidityMiningCampaignRewardToken[];
+  rewards: SubgraphLiquidityMiningCampaignReward[];
   locked: boolean;
   stakingCap: string;
 }
@@ -42,20 +44,20 @@ export function toLiquidityMiningCampaign(
   campaign: SubgraphLiquidityMiningCampaign,
   nativeCurrency: Currency
 ): LiquidityMiningCampaign {
-  const rewards = campaign.rewardTokens.map((rewardToken, index) => {
+  const rewards = campaign.rewards.map((reward) => {
     const properRewardToken = new Token(
       chainId,
-      getAddress(rewardToken.address),
-      parseInt(rewardToken.decimals),
-      rewardToken.symbol,
-      rewardToken.name
+      getAddress(reward.token.address),
+      parseInt(reward.token.decimals),
+      reward.token.symbol,
+      reward.token.name
     );
     const rewardTokenPriceNativeCurrency = new Price(
       properRewardToken,
       nativeCurrency,
       parseFixed("1", nativeCurrency.decimals).toString(),
       parseFixed(
-        new Decimal(rewardToken.derivedNativeCurrency).toFixed(
+        new Decimal(reward.token.derivedNativeCurrency).toFixed(
           nativeCurrency.decimals
         ),
         nativeCurrency.decimals
@@ -63,15 +65,15 @@ export function toLiquidityMiningCampaign(
     );
     const pricedRewardToken = new PricedToken(
       chainId,
-      getAddress(rewardToken.address),
-      parseInt(rewardToken.decimals),
+      getAddress(reward.token.address),
+      parseInt(reward.token.decimals),
       rewardTokenPriceNativeCurrency,
-      rewardToken.symbol,
-      rewardToken.name
+      reward.token.symbol,
+      reward.token.name
     );
     return new PricedTokenAmount(
       pricedRewardToken,
-      parseFixed(campaign.rewardAmounts[index], rewardToken.decimals).toString()
+      parseFixed(reward.amount, reward.token.decimals).toString()
     );
   });
   const lpTokenPriceNativeCurrency = getLpTokenPrice(
