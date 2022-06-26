@@ -52,17 +52,17 @@ export function toLiquidityMiningCampaign(
       reward.token.symbol,
       reward.token.name
     );
-    const rewardTokenPriceNativeCurrency = new Price(
-      properRewardToken,
-      nativeCurrency,
-      parseFixed("1", nativeCurrency.decimals).toString(),
-      parseFixed(
+    const rewardTokenPriceNativeCurrency = new Price({
+      baseCurrency: properRewardToken,
+      quoteCurrency: nativeCurrency,
+      denominator: parseFixed("1", nativeCurrency.decimals).toString(),
+      numerator: parseFixed(
         new Decimal(reward.token.derivedNativeCurrency).toFixed(
           nativeCurrency.decimals
         ),
         nativeCurrency.decimals
-      ).toString()
-    );
+      ).toString(),
+    });
     const pricedRewardToken = new PricedToken(
       chainId,
       getAddress(reward.token.address),
@@ -94,20 +94,20 @@ export function toLiquidityMiningCampaign(
     stakedPricedToken,
     parseFixed(campaign.stakedAmount, stakedPricedToken.decimals).toString()
   );
-  return new LiquidityMiningCampaign(
-    campaign.startsAt,
-    campaign.endsAt,
+  return new LiquidityMiningCampaign({
+    startsAt: campaign.startsAt,
+    endsAt: campaign.endsAt,
     targetedPair,
     rewards,
     staked,
-    campaign.locked,
-    new TokenAmount(
+    locked: campaign.locked,
+    stakingCap: new TokenAmount(
       targetedPair.liquidityToken,
       parseFixed(
         campaign.stakingCap,
         targetedPair.liquidityToken.decimals
       ).toString()
     ),
-    getAddress(campaign.address)
-  );
+    address: getAddress(campaign.address),
+  });
 }

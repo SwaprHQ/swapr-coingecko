@@ -21,7 +21,7 @@ import { SUBGRAPH_URL } from "../utils/commons";
 
 const CHAIN_NAME = {
   [ChainId.MAINNET]: "mainnet",
-  [ChainId.XDAI]: "xDai",
+  [ChainId.XDAI]: "Gnosis Chain",
   [ChainId.ARBITRUM_ONE]: "Arbitrum",
 };
 
@@ -207,17 +207,17 @@ async function getCampaignsAndNativeCurrencyPriceAndTvl(
         );
       }
     ),
-    nativeCurrencyPrice: new Price(
-      nativeCurrency,
-      Currency.USD,
-      parseFixed("1", Currency.USD.decimals).toString(),
-      parseFixed(
+    nativeCurrencyPrice: new Price({
+      baseCurrency: nativeCurrency,
+      quoteCurrency: Currency.USD,
+      numerator: parseFixed(
         new Decimal(
           nativeCurrencyPriceResult.data.bundle.nativeCurrencyPrice
         ).toFixed(18),
         Currency.USD.decimals
-      ).toString()
-    ),
+      ).toString(),
+      denominator: parseFixed("1", Currency.USD.decimals).toString(),
+    }),
     tvl,
   };
 }
@@ -265,9 +265,9 @@ export const pools: Handler = async () => {
     tvl: mainnetTvl,
   } = await getCampaignsAndNativeCurrencyPriceAndTvl(ChainId.MAINNET);
   const {
-    campaigns: xDaiCampaigns,
-    nativeCurrencyPrice: xDaiNativeCurrencyPrice,
-    tvl: xDaiTvl,
+    campaigns: gnosisCampaigns,
+    nativeCurrencyPrice: gnosisNativeCurrencyPrice,
+    tvl: gnosisTvl,
   } = await getCampaignsAndNativeCurrencyPriceAndTvl(ChainId.XDAI);
   const {
     campaigns: arbitrumCampaigns,
@@ -276,11 +276,11 @@ export const pools: Handler = async () => {
   } = await getCampaignsAndNativeCurrencyPriceAndTvl(ChainId.ARBITRUM_ONE);
 
   const allCampaigns = mainnetCampaigns
-    .concat(xDaiCampaigns)
+    .concat(gnosisCampaigns)
     .concat(arbitrumCampaigns);
   const nativeCurrencyPrice = {
     [ChainId.MAINNET]: mainnetNativeCurrencyPrice,
-    [ChainId.XDAI]: xDaiNativeCurrencyPrice,
+    [ChainId.XDAI]: gnosisNativeCurrencyPrice,
     [ChainId.ARBITRUM_ONE]: arbitrumNativeCurrencyPrice,
   };
 
@@ -342,7 +342,7 @@ export const pools: Handler = async () => {
           link: "https://dxdao.eth.link",
         },
       ],
-      tvlUSD: mainnetTvl.add(xDaiTvl).add(arbitrumTvl).toFixed(2),
+      tvlUSD: mainnetTvl.add(gnosisTvl).add(arbitrumTvl).toFixed(2),
       pools,
     }),
   };

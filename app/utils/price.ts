@@ -17,13 +17,13 @@ export function getLpTokenPrice(
         new Decimal(totalSupply).toFixed(pair.liquidityToken.decimals),
         pair.liquidityToken.decimals
       ).toString();
-  return new Price(
-    pair.liquidityToken,
-    nativeCurrency,
-    priceDenominator,
-    parseFixed(
+  return new Price({
+    baseCurrency: pair.liquidityToken,
+    quoteCurrency: nativeCurrency,
+    denominator: priceDenominator,
+    numerator: parseFixed(
       new Decimal(reserveNativeCurrency).toFixed(nativeCurrency.decimals),
       nativeCurrency.decimals
-    ).toString()
-  );
+    ).toString(),
+  });
 }

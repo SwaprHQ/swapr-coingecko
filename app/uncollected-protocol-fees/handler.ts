@@ -95,7 +95,7 @@ export const uncollectedProtocolFees: Handler = async () => {
     `https://arb1.arbitrum.io/rpc`,
     "0x1D7C7cb66fB2d75123351FD0d6779E8d7724a1ae"
   );
-  const xDaiFees = await getProtocolFeesUSD(
+  const gnosisFees = await getProtocolFeesUSD(
     ChainId.XDAI,
     SUBGRAPH_URL[ChainId.XDAI],
     "https://rpc.gnosischain.com/",
@@ -111,8 +111,8 @@ export const uncollectedProtocolFees: Handler = async () => {
     body: JSON.stringify({
       mainnetUSD: mainnetFees.toFixed(3),
       arbitrumOneUSD: arbitrumOneFees.toFixed(3),
-      xDaiUSD: xDaiFees.toFixed(3),
-      totalUSD: xDaiFees.plus(mainnetFees).plus(arbitrumOneFees).toFixed(3),
+      gnosisUSD: gnosisFees.toFixed(3),
+      totalUSD: gnosisFees.plus(mainnetFees).plus(arbitrumOneFees).toFixed(3),
     }),
   };
 };
