@@ -99,7 +99,7 @@ export const uncollectedProtocolFees: Handler = async () => {
     ChainId.XDAI,
     SUBGRAPH_URL[ChainId.XDAI],
     "https://rpc.gnosischain.com/",
-    "0xa68fad1e05a644414f4878ce5c5357be634bcf4c"
+    "0xa68Fad1e05a644414f4878Ce5C5357be634Bcf4c"
   );
 
   return {
