@@ -3,9 +3,13 @@ app: swapr-coingecko-farming
 service: swapr-coingecko-farming
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs16.x
+  timeout: 20
+package:
+  patterns:
+    - '!node_modules/**'
 plugins:
-  - serverless-plugin-typescript
+  - serverless-webpack
   - serverless-offline
 functions:
   pools:
@@ -16,14 +20,12 @@ functions:
           method: get
   circulating-supply:
     handler: app/circulating-supply/handler.circulatingSupply
-    environment: ${file(.env.json)}
     events:
       - http:
           path: circulating-supply
           method: get
   uncollected-protocol-fees:
     handler: app/uncollected-protocol-fees/handler.uncollectedProtocolFees
-    environment: ${file(.env.json)}
     events:
       - http:
           path: uncollected-protocol-fees
