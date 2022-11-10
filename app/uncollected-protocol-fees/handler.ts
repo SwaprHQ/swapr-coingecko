@@ -95,7 +95,7 @@ export const uncollectedProtocolFees: Handler = async () => {
     'Arbitrum One',
     SUBGRAPH_URL[ChainId.ARBITRUM_ONE],
     `https://arb1.arbitrum.io/rpc`,
-    '0x1D7C7cb66fB2d75123351FD0d6779E8d7724a1ae'
+    '0xE8868A069a685747D9bDB0c444116Be03c67bb0c'
   )
   const gnosisFees = await getProtocolFeesUSD(
     ChainId.XDAI,
