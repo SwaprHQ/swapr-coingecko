@@ -87,7 +87,7 @@ export const uncollectedProtocolFees: Handler = async () => {
     ChainId.MAINNET,
     'mainnet',
     SUBGRAPH_URL[ChainId.MAINNET],
-    `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
+    'https://eth.llamarpc.com',
     '0xC6130400C1e3cD7b352Db75055dB9dD554E00Ef0'
   )
   const arbitrumOneFees = await getProtocolFeesUSD(
@@ -98,9 +98,9 @@ export const uncollectedProtocolFees: Handler = async () => {
     '0xE8868A069a685747D9bDB0c444116Be03c67bb0c'
   )
   const gnosisFees = await getProtocolFeesUSD(
-    ChainId.XDAI,
+    ChainId.GNOSIS,
     'Gnosis',
-    SUBGRAPH_URL[ChainId.XDAI],
+    SUBGRAPH_URL[ChainId.GNOSIS],
     'https://rpc.gnosischain.com/',
     '0xa68Fad1e05a644414f4878Ce5C5357be634Bcf4c'
   )

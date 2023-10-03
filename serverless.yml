@@ -1,4 +1,3 @@
-org: luzzif
 app: swapr-coingecko-farming
 service: swapr-coingecko-farming
 provider:

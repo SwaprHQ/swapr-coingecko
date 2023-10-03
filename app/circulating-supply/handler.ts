@@ -19,7 +19,7 @@ const getMainnetBalances = async (): Promise<{
   burntBalance: BigNumber
 }> => {
   const provider = new StaticJsonRpcProvider(
-    { url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}` },
+    { url: 'https://eth.llamarpc.com' },
     { chainId: ChainId.MAINNET, name: 'mainnet' }
   )
 
@@ -28,7 +28,7 @@ const getMainnetBalances = async (): Promise<{
     {
       to: swprAddress,
       data: basicErc20Interface.encodeFunctionData(balanceOfFunction, [
-        '0x519b70055af55a007110b4ff99b0ea33071c720a', // DAO's avatar address on mainnet
+        '0xa953dEaDE87de58c5D539bF4104d233166C17827', // Swapr Safe Treasury address on mainnet
       ]),
     },
     {
@@ -63,7 +63,7 @@ const getArbitrumOneBalances = async (): Promise<{
     {
       to: swprAddress,
       data: basicErc20Interface.encodeFunctionData(balanceOfFunction, [
-        '0x2B240b523f69b9aF3adb1C5924F6dB849683A394', // DAO's avatar address on arb1
+        '0xF7505d655e28e746BAAC9646030C3F2193E3B542', // DAO's avatar address on arb1
       ]),
     },
     {

@@ -22,7 +22,7 @@ import { parseUnits } from '@ethersproject/units'
 
 const CHAIN_NAME = {
   [ChainId.MAINNET]: 'mainnet',
-  [ChainId.XDAI]: 'Gnosis Chain',
+  [ChainId.GNOSIS]: 'Gnosis Chain',
   [ChainId.ARBITRUM_ONE]: 'Arbitrum',
 }
 
@@ -310,15 +310,15 @@ export const pools: Handler = async () => {
       links: [
         {
           title: 'Twitter',
-          link: 'https://twitter.com/SwaprEth',
+          link: 'https://twitter.com/Swapr_dapp',
         },
         {
           title: 'Discord',
-          link: 'https://discord.com/invite/4QXEJQkvHH',
+          link: 'https://discord.gg/cQcdACSSsF',
         },
         {
           title: 'Website',
-          link: 'https://dxdao.eth.link',
+          link: 'https://swapr.eth.link',
         },
       ],
       tvlUSD: mainnetTvl.add(gnosisTvl).add(arbitrumTvl).toFixed(2),
