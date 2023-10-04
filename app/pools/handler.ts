@@ -235,7 +235,7 @@ const liquidityMiningCampaignToPool = (
       campaign.staked.nativeCurrencyAmount.multiply(nativeCurrencyPrice).toFixed(2)
     ),
     pair: `${campaign.targetedPair.token0.symbol}-${campaign.targetedPair.token1.symbol}`,
-    pairLink: `https://swapr.eth.link/#/pools/${campaign.targetedPair.token0.address}/${campaign.targetedPair.token1.address}?chainId=${campaign.chainId}`,
+    pairLink: `https://swapr.eth.limo/#/pools/${campaign.targetedPair.token0.address}/${campaign.targetedPair.token1.address}?chainId=${campaign.chainId}`,
     poolRewards: campaign.rewards.map((reward) => reward.token.symbol),
     totalStakedUSD: Number(campaign.staked.multiply(nativeCurrencyPrice).toFixed(2)),
     apr: Number(campaign.apy.toFixed(2)),
@@ -305,8 +305,8 @@ export const pools: Handler = async () => {
     statusCode: 200,
     body: JSON.stringify({
       provider: 'Swapr',
-      provider_logo: 'https://swapr.eth.link/favicon.png',
-      provider_URL: 'https://swapr.eth.link',
+      provider_logo: 'https://swapr.eth.limo/favicon.png',
+      provider_URL: 'https://swapr.eth.limo',
       links: [
         {
           title: 'Twitter',
@@ -318,7 +318,7 @@ export const pools: Handler = async () => {
         },
         {
           title: 'Website',
-          link: 'https://swapr.eth.link',
+          link: 'https://swapr.eth.limo',
         },
       ],
       tvlUSD: mainnetTvl.add(gnosisTvl).add(arbitrumTvl).toFixed(2),
